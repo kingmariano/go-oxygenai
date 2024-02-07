@@ -19,12 +19,12 @@ package main
 import (
 	"context"
 	"fmt"
-
+    "os"
 	oxygenai "github.com/charlesozo/go-oxygenai"
 )
 
 func main(){
-    client := oxygenai.NewClient("oxy-Jr6vMN7zlVf5Pql0Ua8nTBvfgeoLmzdnf1BPGmllofYu5")
+    client := oxygenai.NewClient(os.getenv("OXYGEN_API_TOKEN"))
 	response, err := client.ChatCompletion(context.Background(), &oxygenai.ChatRequest{
 		Messages: []oxygenai.ChatMessage{
 		  {
