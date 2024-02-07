@@ -46,7 +46,7 @@ Output:
 response goes here
 ```
 
-For more example usage, see [_examples](./_examples).
+
 
 ## License
 [MIT](LICENCE)
