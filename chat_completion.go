@@ -33,7 +33,7 @@ type ChatRequest struct {
 }
 type ChatResponse struct {
 	ID                string        `json:"id"`                 // Unique identifier for the chat completion
-	Choices           []interface{} `json:"choices"`            // List of chat completion choices
+	Choices           []ChatChoice `json:"choices"`            // List of chat completion choices
 	Created           int64         `json:"created"`            // Unix timestamp (in seconds) of when the chat completion was created
 	Model             string        `json:"model"`              // Model used for the chat completion
 	SystemFingerprint string        `json:"system_fingerprint"` // Fingerprint representing the backend configuration that the model runs with
@@ -44,6 +44,12 @@ type ChatResponse struct {
 type ChatMessage struct {
 	Role    string `json:"role"`
 	Content string `json:"content"`
+}
+type ChatChoice struct {
+    Message      ChatMessage `json:"message"`        // Message containing the role and content
+    Logprobs     interface{} `json:"logprobs"`       // Log probabilities of the output tokens
+    FinishReason string      `json:"finish_reason"`  // Reason for finishing the completion
+    Index        int         `json:"index"`          // Index of the choice
 }
 
 func (oc *OxygenClient) ChatCompletion(ctx context.Context, req *ChatRequest) (*ChatResponse, error) {
