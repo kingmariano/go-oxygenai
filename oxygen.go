@@ -16,9 +16,9 @@ type HTTPClient interface {
 }
 
 type OxygenClient struct {
-	httpclient HTTPClient
-	token      string
-	baseurl    string
+	Httpclient HTTPClient
+	Token      string
+	Baseurl    string
 }
 type ErrorResponse struct {
 	Error string `json:"error"`
@@ -26,9 +26,9 @@ type ErrorResponse struct {
 
 func NewClient(token string) *OxygenClient {
 	return &OxygenClient{
-		httpclient: http.DefaultClient,
-		token:      token,
-		baseurl:    APIBaseURL,
+		Httpclient: http.DefaultClient,
+		Token:      token,
+		Baseurl:    APIBaseURL,
 	}
 }
 
@@ -44,10 +44,10 @@ func (oc *OxygenClient) post(ctx context.Context, task string, payload any) ([]b
 	}
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Accept", "application/json")
-	if oc.token != "" {
-		req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", oc.token))
+	if oc.Token != "" {
+		req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", oc.Token))
 	}
-	res, err := oc.httpclient.Do(req)
+	res, err := oc.Httpclient.Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -71,5 +71,5 @@ func (oc *OxygenClient) post(ctx context.Context, task string, payload any) ([]b
 
 func (oc *OxygenClient) resolveURL(ctx context.Context, task string) string {
 
-	return fmt.Sprintf("%s/%s", oc.baseurl, task)
+	return fmt.Sprintf("%s/%s", oc.Baseurl, task)
 }
